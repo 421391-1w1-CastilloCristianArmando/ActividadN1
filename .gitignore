@@ -1,0 +1,43 @@
+# Build
+bin/
+obj/
+[Bb]uild/
+artifacts/
+*.log
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+# Tests
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# Rider / ReSharper / JetBrains
+.idea/
+.ReSharper*/
+*.DotSettings.user
+
+# Publicación local
+Properties/PublishProfiles/*.pubxml
+*.publishsettings
+*.pubxml.user
+
+# Configs locales / secretos (ajustá según uses)
+appsettings.*.local.json
+secrets.json
+
+# SO
+.DS_Store
+Thumbs.db

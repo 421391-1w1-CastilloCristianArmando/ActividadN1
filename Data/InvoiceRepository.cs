@@ -16,9 +16,9 @@ namespace ActividadN1.Data
         private readonly SqlTransaction _transaction;
 
         public InvoiceRepository()
-        {
-
+        {            
         }
+
         public InvoiceRepository(SqlTransaction transaction)
         {
             _transaction = transaction;
@@ -84,7 +84,7 @@ namespace ActividadN1.Data
                     ArticleId = (int)rowD["id_articulo"],
                     ArticleName = (string)rowD["articulo"],
                     UnitPrice = (decimal)rowD["precio_unitario"],
-                    Quantity = (int)row["cantidad"],                    
+                    Quantity = (int)rowD["cantidad"],                    
                 };
                 invoice.AddItem(detail.ArticleId, detail.ArticleName, detail.UnitPrice, detail.Quantity);                               
             }
@@ -122,9 +122,41 @@ namespace ActividadN1.Data
             
         }
 
-        public bool Update(Invoice invoice)
+        public bool Update(Invoice invoice, UpdateMode mode)
         {
-            throw new NotImplementedException();
+            if (invoice == null || invoice.Id <= 0)
+                return false;
+            var param = new List<Parameters>
+            {
+                new Parameters ("@id", invoice.Id),
+                new Parameters ("@nro_factura", invoice.InvoiceNumber),
+                new Parameters ("@id_pago", invoice.IdPayment),
+                new Parameters ("@cliente", invoice.Customer),
+            };
+            int dt = DataHelper.GetInstance().ExecuteSPDML("SP_ACTUALIZAR_FACTURA", param, _transaction);
+            if (dt <= 0)
+                return false;
+
+            if (mode == UpdateMode.HeaderOnly)
+                return true;
+            var paramDel = new List<Parameters> { new Parameters("@id_factura", invoice.Id) };
+            DataHelper.GetInstance().ExecuteSPDML("SP_ELIMINAR_DETALLES_POR_FACTURA", paramDel, _transaction);
+            if (invoice.Details == null || invoice.Details.Count == 0)
+                return false;
+            bool allOk = true;
+            foreach (var detail in invoice.Details)
+            {
+                var paramDetails = new List<Parameters>
+                {
+                    new Parameters ("@id_factura", invoice.Id),
+                    new Parameters ("@id_articulo", detail.ArticleId),
+                    new Parameters ("@cantidad", detail.Quantity),
+                    new Parameters ("@precio_unitario", detail.UnitPrice),
+                };
+                int rcD = DataHelper.GetInstance().ExecuteSPDML("SP_INSERTAR_DETALLE_FACTURA", paramDetails, _transaction);
+                allOk = allOk && (rcD > 0);
+            }
+            return allOk;  
         }
     }
 }

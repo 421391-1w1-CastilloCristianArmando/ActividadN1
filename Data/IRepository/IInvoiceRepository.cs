@@ -13,6 +13,6 @@ namespace ActividadN1.Data.IRepository
         Invoice GetById(int id);
         bool Save(Invoice invoice);
         bool Delete(int id);
-        bool Update(Invoice invoice);
+        bool Update(Invoice invoice, UpdateMode mode);
     }
 }

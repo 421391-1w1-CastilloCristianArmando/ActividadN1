@@ -1,0 +1,37 @@
+create database Facturacion1_5
+GO
+use Facturacion1_5
+GO
+create table Articulos(
+id int identity (1,1),
+nombre varchar(100),
+precio decimal(10,2),
+constraint pk_articulo primary key (id)
+)
+create table forma_pago(
+id_pago int identity (1,	1),
+forma_pago varchar(100),
+constraint pk_forma_pago primary key (id_pago)
+)
+create table Facturas(
+id_factura int identity(1,1),
+nro_factura int,
+fecha datetime,
+id_pago int,
+cliente varchar(100),
+constraint pk_factura primary key (id_factura),
+constraint fk_factura_forma_pago foreign key (id_pago)
+references forma_pago(id_pago)
+)
+create table Detalles_factura(
+id_detalle int identity(1,1),
+id_articulo int,
+id_factura int,
+precio_unitario decimal (10,2),
+cantidad int,
+constraint pk_detalle_factura primary key(id_detalle),
+constraint fk_detalle_articulo foreign key (id_articulo)
+references articulos(id),
+constraint fk_detalle_factura_factura foreign key (id_factura)
+references facturas(id_factura)
+)

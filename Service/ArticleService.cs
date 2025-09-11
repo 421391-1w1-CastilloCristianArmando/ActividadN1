@@ -14,9 +14,9 @@ namespace ActividadN1.Service
     {
         private IArticleRepository _repository;
 
-        public ArticleService()
+        public ArticleService(IArticleRepository repository)
         {
-            _repository = new ArticleRepository();
+            _repository = repository;
         }
         public bool Detele(int id)
         {

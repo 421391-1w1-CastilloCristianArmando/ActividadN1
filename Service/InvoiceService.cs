@@ -3,6 +3,7 @@ using ActividadN1.Data.IRepository;
 using ActividadN1.Data.Utils;
 using ActividadN1.Domain;
 using ActividadN1.Service.IService;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,11 @@ namespace ActividadN1.Service
     public class InvoiceService : IInvoiceService
     {
         private IInvoiceRepository _repository;
+        private readonly Func<SqlTransaction, IInvoiceRepository> _repoFactory;
 
-        public InvoiceService()
+        public InvoiceService(IInvoiceRepository repository, Func<SqlTransaction, IInvoiceRepository> repoFactory)
         {
-            _repository = new InvoiceRepository();
+            _repository = repository;
         }
         public bool Delete(int id)
         {
@@ -56,9 +58,18 @@ namespace ActividadN1.Service
             return ok;
         }
 
-        public bool Update(Invoice invoice)
+        public bool Update(Invoice invoice, UpdateMode mode)
         {
-            throw new NotImplementedException();
+            if (invoice == null || invoice.Id <= 0)
+                return false;
+            using var uow = new UnitOfWork();
+            var repo = new InvoiceRepository(uow.Transaction);
+
+            var ok = repo.Update(invoice, mode);
+            if (ok)
+                uow.SaveChanges();
+            return ok;
+
         }
     }
 }

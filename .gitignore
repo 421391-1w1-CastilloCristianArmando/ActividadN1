@@ -1,20 +1,29 @@
-# Build
-bin/
-obj/
-[Bb]uild/
-artifacts/
-*.log
+# -----------------------------------------
+# Visual Studio / .NET (API + Class Library)
+# -----------------------------------------
 
-# Visual Studio
+# IDE
 .vs/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-*.csproj.user
 
-# Tests
-TestResults/
+# Build / binarios
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+artifacts/
+*.log
+*.tlog
+
+# Configuraci√≥n de publicaci√≥n local
+Properties/PublishProfiles/*.pubxml
+*.pubxml.user
+*.publishsettings
+
+# Test
+[Tt]est[Rr]esults/
 *.trx
 *.coverage
 *.coveragexml
@@ -24,20 +33,26 @@ packages/
 *.nupkg
 .nuget/
 
-# Rider / ReSharper / JetBrains
+# Rider / JetBrains
 .idea/
 .ReSharper*/
 *.DotSettings.user
 
-# PublicaciÛn local
-Properties/PublishProfiles/*.pubxml
-*.publishsettings
-*.pubxml.user
-
-# Configs locales / secretos (ajust· seg˙n uses)
-appsettings.*.local.json
-secrets.json
+# VS Code
+.vscode/*
 
 # SO
 .DS_Store
 Thumbs.db
+
+# Archivos temporales
+*.tmp
+~$*
+
+# Config locales / secretos (ajust√° seg√∫n tu proyecto)
+appsettings.*.local.json
+secrets.json
+
+# (Opcional) herramientas locales
+*.opendb
+*.db

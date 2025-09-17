@@ -21,6 +21,7 @@ namespace WebApiEFDBF
             builder.Services.AddScoped<IArticuloRepository, ArticuloRepository>();
             builder.Services.AddScoped<IFacturaRepository, FacturaRepository>();
             builder.Services.AddScoped<IArticuloService, ArticuloService>();
+            builder.Services.AddScoped<IFacturaService, FacturaService>();
 
             builder.Services.AddSwaggerGen();
 

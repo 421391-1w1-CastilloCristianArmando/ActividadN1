@@ -1,0 +1,58 @@
+# -----------------------------------------
+# Visual Studio / .NET (API + Class Library)
+# -----------------------------------------
+
+# IDE
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build / binarios
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+artifacts/
+*.log
+*.tlog
+
+# Configuración de publicación local
+Properties/PublishProfiles/*.pubxml
+*.pubxml.user
+*.publishsettings
+
+# Test
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# Rider / JetBrains
+.idea/
+.ReSharper*/
+*.DotSettings.user
+
+# VS Code
+.vscode/*
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+~$*
+
+# Config locales / secretos (ajustá según tu proyecto)
+appsettings.*.local.json
+secrets.json
+
+# (Opcional) herramientas locales
+*.opendb
+*.db

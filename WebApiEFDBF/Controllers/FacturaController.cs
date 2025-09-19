@@ -81,5 +81,19 @@ namespace WebApiEFDBF.Controllers
                 return StatusCode(500, "Error con el servidor.");
             }
         }
+
+        [HttpDelete("id")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _service.Delete(id);
+                return Ok("Factura eliminada");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error con el servidor."); ;
+            }
+        }
     }
 }

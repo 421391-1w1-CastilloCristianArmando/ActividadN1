@@ -57,7 +57,8 @@ public partial class FacturacionDBContext : DbContext
 
             entity.HasOne(d => d.IdFacturaNavigation).WithMany(p => p.DetallesFacturas)
                 .HasForeignKey(d => d.IdFactura)
-                .HasConstraintName("fk_detalle_factura_factura");
+                .HasConstraintName("fk_detalle_factura_factura")
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Factura>(entity =>
